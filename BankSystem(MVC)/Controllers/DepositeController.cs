@@ -52,6 +52,7 @@ namespace BankSystem_MVC_.Controllers
                 {
                     try
                     {
+                        ViewBag.Message = "Hi, Dot Net Tricks";
                         var account = _bankDbContext.Account.FirstOrDefault(e => e.Id == depositeDto.AccountId);
                         if (account == null)
                         {
@@ -74,6 +75,7 @@ namespace BankSystem_MVC_.Controllers
 
                         };
                          _emailRepository.SendEmailAsync(mailRequest);
+                        ViewBag.Msg = ViewBag.Message;
                         return RedirectToAction("DepositeAccount");
 
 

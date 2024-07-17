@@ -1,10 +1,12 @@
-﻿@model IEnumerable<BankSystem_MVC_.Models.Otp>
+﻿
+@model IEnumerable<BankSystem_MVC_.Models.Otp>
 
 @{
+   
     ViewData["Title"] = "Add";
 }
+//<h2>Add OTP</h2>
 
-<h1>Add</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,15 +14,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpiryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsUsed)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.AccountId)
             </th>
@@ -30,18 +24,11 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpiryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsUsed)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.AccountId)
             </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -51,3 +38,9 @@
 }
     </tbody>
 </table>
+
+
+
+
+
+

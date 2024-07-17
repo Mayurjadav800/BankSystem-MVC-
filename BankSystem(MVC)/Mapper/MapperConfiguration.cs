@@ -11,7 +11,7 @@ namespace BankSystem_MVC_.Mapper
             CreateMap<Deposite, DepositeDto>().ReverseMap();
             CreateMap<Withdraw, WithdrawDto>().ReverseMap();
             CreateMap<Transfer, TransferDto>().ReverseMap();
-
+            CreateMap<Account, LogginDto>().ReverseMap();
             CreateMap<Account, LogginDto>().ReverseMap();
         }
     }

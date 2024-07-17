@@ -24,7 +24,6 @@ namespace BankSystem_MVC_.Controllers
             {
                 return View();
             }
-
         }
         public IActionResult AddAccount()
         {

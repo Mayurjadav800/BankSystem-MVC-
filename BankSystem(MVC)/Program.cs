@@ -24,9 +24,6 @@ builder.Services.AddControllers(); builder.Services.AddAuthentication(JwtBearerD
     });
 builder.Services.AddAuthorization();
 //builder.Services.AddEndpointsApiExplorer();
-
-
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -36,6 +33,8 @@ builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("Email
 builder.Services.AddDbContext<BankDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+
+builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

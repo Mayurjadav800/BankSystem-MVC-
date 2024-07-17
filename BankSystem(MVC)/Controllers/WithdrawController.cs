@@ -73,7 +73,8 @@ namespace BankSystem_MVC_.Controllers
                     };
 
                      _emailRepository.SendEmailAsync(mailRequest);
-                    return RedirectToAction("WithdrawAccount");
+                    return RedirectToAction("WithdrawAccount", new { msg = "SomeMessageGoesViaQueryString" });
+                   // return RedirectToAction("WithdrawAccount");
                 }
                 catch (Exception ex)
                 {
@@ -85,4 +86,5 @@ namespace BankSystem_MVC_.Controllers
             }
         }
     }
+
 }

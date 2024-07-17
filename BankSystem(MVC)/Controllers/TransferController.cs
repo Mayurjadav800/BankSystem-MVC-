@@ -47,7 +47,21 @@ namespace BankSystem_MVC_.Controllers
         {
             try
             {
-               
+                var otp =  _bankDbContext.Otp
+                    .FirstOrDefault(e => e.AccountId == transferDto.AccountId && e.IsUsed == true);
+
+                if (otp == null)
+                {
+                    throw new Exception("OTP invalid");
+                }
+                var dateTime = DateTime.Now;
+                if (dateTime > otp.ExpiryDate)
+                {
+                    _bankDbContext.Remove(otp);
+                    _bankDbContext.SaveChanges();
+                    throw new Exception("OTP will be expire");
+                }
+
                 if (transferDto.TransferAmount <= 0)
                 {
                     return BadRequest("Transfer amount must be greater than zero.");
@@ -82,7 +96,7 @@ namespace BankSystem_MVC_.Controllers
 
                         var transfer = _mapper.Map<Transfer>(transferDto);
                         _bankDbContext.Transfer.Add(transfer);
-                       // _bankDbContext.Otp.Remove(otp);
+                       _bankDbContext.Otp.Remove(otp);
 
                         _bankDbContext.SaveChanges();
                         transaction.Commit();
@@ -102,13 +116,14 @@ namespace BankSystem_MVC_.Controllers
                             Body = $"{receiverAccount.FirstName}, you have received {transferDto.TransferAmount} from {senderAccount.FirstName}. Your new balance is {receiverAccount.CurrentBalance}."
                         };
                          _emailRepository.SendEmailAsync(receiverEmailRequest);
+                       
 
-                        return Ok(_mapper.Map<TransferDto>(transfer));
+                       return Ok(_mapper.Map<TransferDto>(transfer));
+                        //RedirectToAction("TransferAccount");
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
-                        // Log exception here
+                         transaction.Rollback();
                         return StatusCode(500, "Internal server error.");
                     }
                 }
